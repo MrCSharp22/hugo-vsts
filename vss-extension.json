@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "hugo-build-task-azure-devops",
     "publisher": "MrCSharp",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "name": "Hugo",
     "description": "An Azure DevOps extension to build Hugo sites.",
     "public": false,
@@ -18,7 +18,7 @@
         "build"
     ],
     "icons": {
-        "default": "image/hugo-128x128.png"
+        "default": "images/hugo-128x128.png"
     },
     "content": {
         "details": {
@@ -30,15 +30,15 @@
     },
     "links": {
         "getstarted": {
-            "uri": "https://github.com/giuliov/hugo-vsts-extension/blob/master/README.md"
+            "uri": "https://github.com/MrCSharp22/hugo-vsts/blob/master/README.md"
         },
         "support": {
-            "uri": "https://github.com/giuliov/hugo-vsts-extension/issues"
+            "uri": "https://github.com/MrCSharp22/hugo-vsts/issues"
         }
     },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/giuliov/hugo-vsts-extension"
+        "uri": "https://github.com/MrCSharp22/hugo-vsts"
     },
     "contributions": [
         {
