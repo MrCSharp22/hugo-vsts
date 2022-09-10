@@ -28,6 +28,18 @@
             "path": "LICENSE.txt"
         }
     },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/giuliov/hugo-vsts-extension/blob/master/README.md"
+        },
+        "support": {
+            "uri": "https://github.com/giuliov/hugo-vsts-extension/issues"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/giuliov/hugo-vsts-extension"
+    },
     "contributions": [
         {
             "id": "hugo-build-task",

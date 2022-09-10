@@ -1,6 +1,8 @@
 Generates a site using Hugo, a Fast and Flexible Website Generator.
 
-[![Hugo logo here](images/hugo-logo.png)](https://gohugo.io/)
+This is a fork/re-work of [Hugo VSTS Extension by Giulio Vian](https://github.com/giuliov/hugo-vsts-extension) to fix build issues with the latest hugo version.
+
+[![Hugo logo here](images/hugo-128x128.png)](https://gohugo.io/)
 
 # Usage
 
@@ -16,11 +18,9 @@ You can specify some common options.
 - **Include Drafts**: to include content marked as draft, passed as `--buildDrafts` flag.
 - **Include Expired**: to include expired content, passed as `--buildExpired` flag.
 - **Include Future**: to include content with publishdate in the future, passed as `--buildFuture` flag.
-- ~~**Use Ugly URLs**: to use `/filename.html` instead of `/filename/`, passed as `--uglyURLs` flag.~~
+- **Minify Output**: to minify supported output files (Html, Css, Xml, etc...).
 
-![Build Task Arguments screenshot here](images/BuildTaskArguments.png)
-
-A detailed walk through is here [Building a Hugo Site with the Azure DevOps Extension](hugo-extension-step-by-step.md)
+![Build Task Arguments screenshot here](images/vsts-task-config-ui.png)
 
 More Information on Hugo on [this site](https://gohugo.io/).
 
@@ -28,21 +28,9 @@ The Hugo logos are copyright © Steve Francia 2013–2022.
 
 # Release Notes
 
-## 2.0
-
-- New Cross-platform implementation.
-- Removed `uglyURLs` option, deprecated since Hugo 0.xx ???
-- Added `additionalArgs` option to allow custom arguments.
-
-## 1.1.0
-
-- Fixes ([ISSUE#5](https://github.com/giuliov/hugo-vsts-extension/issues/5))
-- Added support for Extended version (Hugo 0.43 and later)
-
-## 1.0.1
-
-- Use TLS 1.2 for GitHub API ([PR#3](https://github.com/giuliov/hugo-vsts-extension/pull/3))
-
-## 1.0.0
-
 - Initial release
+
+
+## TODO
+
+- Add instructions for building this extension
