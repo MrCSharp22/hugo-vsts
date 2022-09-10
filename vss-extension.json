@@ -1,0 +1,48 @@
+{
+    "manifestVersion": 1,
+    "id": "hugo-build-task-azure-devops",
+    "publisher": "MrCSharp",
+    "version": "1.0.1",
+    "name": "Hugo",
+    "description": "An Azure DevOps extension to build Hugo sites.",
+    "public": false,
+    "categories": ["Azure Pipelines"],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "tags": [
+        "hugo",
+        "static generator",
+        "build"
+    ],
+    "icons": {
+        "default": "image/hugo-128x128.png"
+    },
+    "content": {
+        "details": {
+            "path": "README.md"
+        },
+        "license": {
+            "path": "LICENSE.txt"
+        }
+    },
+    "contributions": [
+        {
+            "id": "hugo-build-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "hugo-build-task"
+            }
+        }
+    ],
+    "files": [
+        {
+            "path": "hugo-build-task"
+        }
+    ]
+}
