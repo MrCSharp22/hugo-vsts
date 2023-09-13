@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -34,6 +38,7 @@ const fs = __importStar(require("fs"));
 const os = __importStar(require("os"));
 const path = __importStar(require("path"));
 const util = __importStar(require("util"));
+const compare_versions_1 = require("compare-versions");
 const osPlat = os.platform();
 const osArch = os.arch();
 const cacheKey = 'hugo';
@@ -155,6 +160,15 @@ function acquireHugo(version, extendedVersion) {
     });
 }
 function getFileName(version, extendedVersion) {
+    let platform = getOSPlatformName();
+    let arch = (0, compare_versions_1.compare)(version, '0.103.0', '>=') ? getArchName() : getArchNameOld();
+    const ext = osPlat == "win32" ? "zip" : "tar.gz";
+    const filename = extendedVersion
+        ? util.format("hugo_extended_%s_%s-%s.%s", version, platform, arch, ext)
+        : util.format("hugo_%s_%s-%s.%s", version, platform, arch, ext);
+    return filename;
+}
+function getOSPlatformName() {
     let platform = osPlat;
     // 'aix', 'darwin', 'freebsd', 'linux', 'openbsd', 'sunos', and 'win32'.
     switch (osPlat) {
@@ -165,6 +179,23 @@ function getFileName(version, extendedVersion) {
             platform = 'macOS';
             break;
     }
+    return platform;
+}
+function getArchName() {
+    let arch = osArch;
+    // 'arm', 'arm64', 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', and 'x64'.
+    switch (osArch) {
+        case 'x64':
+            arch = 'amd64';
+            break;
+        case 'ia32':
+        case 'x32':
+            arch = '32bit';
+            break;
+    }
+    return arch;
+}
+function getArchNameOld() {
     let arch = osArch;
     // 'arm', 'arm64', 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', and 'x64'.
     switch (osArch) {
@@ -176,11 +207,7 @@ function getFileName(version, extendedVersion) {
             arch = '32bit';
             break;
     }
-    const ext = osPlat == "win32" ? "zip" : "tar.gz";
-    const filename = extendedVersion
-        ? util.format("hugo_extended_%s_%s-%s.%s", version, platform, arch, ext)
-        : util.format("hugo_%s_%s-%s.%s", version, platform, arch, ext);
-    return filename;
+    return arch;
 }
 function getDownloadUrl(version, filename) {
     return util.format("https://github.com/gohugoio/hugo/releases/download/v%s/%s", version, filename);
