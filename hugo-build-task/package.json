@@ -13,7 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "azure-pipelines-task-lib": "^4.0.0-preview",
-    "azure-pipelines-tool-lib": "^2.0.0-preview"
+    "azure-pipelines-tool-lib": "^2.0.0-preview",
+    "compare-versions": "^6.1.0"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",

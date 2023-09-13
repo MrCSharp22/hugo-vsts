@@ -7,6 +7,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as util from 'util';
+import { compareVersions } from 'compare-versions';
 
 const osPlat: string = os.platform();
 const osArch: string = os.arch();
@@ -141,6 +142,19 @@ async function acquireHugo(version: string, extendedVersion: boolean): Promise<s
 }
 
 function getFileName(version: string, extendedVersion: boolean): string {
+    let result = compareVersions(version, '0.103.0');
+
+    let platform: string = getOSPlatformName();
+    let arch: string = result >= 0 ? getArchName() : getArchNameOld();
+
+    const ext: string = osPlat == "win32" ? "zip" : "tar.gz";
+    const filename: string = extendedVersion
+        ? util.format("hugo_extended_%s_%s-%s.%s", version, platform, arch, ext)
+        : util.format("hugo_%s_%s-%s.%s", version, platform, arch, ext);
+    return filename;
+}
+
+function getOSPlatformName(): string {
     let platform: string = osPlat;
     // 'aix', 'darwin', 'freebsd', 'linux', 'openbsd', 'sunos', and 'win32'.
     switch (osPlat) {
@@ -151,6 +165,27 @@ function getFileName(version: string, extendedVersion: boolean): string {
             platform = 'macOS';
             break;
     }
+
+    return platform;
+}
+
+function getArchName(): string {
+    let arch: string = osArch;
+    // 'arm', 'arm64', 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', and 'x64'.
+    switch (osArch) {
+        case 'x64':
+            arch = 'amd64';
+            break;
+        case 'ia32':
+        case 'x32':
+            arch = '32bit';
+            break;
+    }
+
+    return arch;
+}
+
+function getArchNameOld(): string {
     let arch: string = osArch;
     // 'arm', 'arm64', 'ia32', 'mips', 'mipsel', 'ppc', 'ppc64', 's390', 's390x', 'x32', and 'x64'.
     switch (osArch) {
@@ -162,11 +197,8 @@ function getFileName(version: string, extendedVersion: boolean): string {
             arch = '32bit';
             break;
     }
-    const ext: string = osPlat == "win32" ? "zip" : "tar.gz";
-    const filename: string = extendedVersion
-        ? util.format("hugo_extended_%s_%s-%s.%s", version, platform, arch, ext)
-        : util.format("hugo_%s_%s-%s.%s", version, platform, arch, ext);
-    return filename;
+
+    return arch;
 }
 
 function getDownloadUrl(version: string, filename: string): string {
