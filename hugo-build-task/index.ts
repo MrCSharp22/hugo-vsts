@@ -7,7 +7,7 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import * as util from 'util';
-import { compareVersions } from 'compare-versions';
+import { compare } from 'compare-versions';
 
 const osPlat: string = os.platform();
 const osArch: string = os.arch();
@@ -142,10 +142,8 @@ async function acquireHugo(version: string, extendedVersion: boolean): Promise<s
 }
 
 function getFileName(version: string, extendedVersion: boolean): string {
-    let result = compareVersions(version, '0.103.0');
-
     let platform: string = getOSPlatformName();
-    let arch: string = result >= 0 ? getArchName() : getArchNameOld();
+    let arch: string = compare(version, '0.103.0', '>=') ? getArchName() : getArchNameOld();
 
     const ext: string = osPlat == "win32" ? "zip" : "tar.gz";
     const filename: string = extendedVersion
