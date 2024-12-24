@@ -68,7 +68,7 @@ function run() {
             hugo.argIf(buildFuture, '--buildFuture');
             hugo.argIf(minify, '--minify');
             // implicit flags
-            hugo.line(' --printI18nWarnings --printPathWarnings --enableGitInfo --verbose');
+            hugo.line(' --printI18nWarnings --printPathWarnings --enableGitInfo --logLevel info');
             if (additionalArgs) {
                 hugo.line(additionalArgs);
             }
